@@ -87,20 +87,23 @@ line.SetLineColor(10)
 line.DrawLine(800,50,800,1050)
 line.SetLineColor(10)
 
-#Unevaluated gray band
-xVec = [700,2200,2200,700]
-yVec = [600,2100,2200,700]
-gr = ROOT.TGraph(len(xVec),array.array('d',xVec),array.array('d',yVec))
+#forbidden band
+line.SetLineStyle(2)
+line.SetLineColor(13)
+line.SetLineWidth(2)
+line.DrawLine(700,700,1750,1750)
+line.DrawLine(1900,1900,2200,2200)
+xVec=[700,2200,2200,700]
+yVec=[600,2100,2200,700]
+gr=ROOT.TGraph(len(xVec),array.array('d',xVec),array.array('d',yVec))
 gr.SetFillColor(10)
 gr.Draw('FSAME')
-line.SetLineColor(15)
-line.SetLineStyle(2)
-line.SetLineWidth(1)
-#line.DrawLine(700,600,2200,2100)
-#line.DrawLine(700,700,2200,2200)
+
+#Atlas and luminosity labels
 ROOT.ATLASLabel(0.6,0.88,'Internal')
+legLatex = ROOT.TLatex()
 
-
+legLatex.DrawLatex(1500,1775,'#sqrt{s} = 13 TeV, 5.8 fb^{-1}')
 
 #Custom legend
 xVec=[775.0,925.0,925.0,775.0]
@@ -112,7 +115,6 @@ line.SetLineColor(1)
 line.SetLineStyle(2)
 line.SetLineWidth(2)
 line.DrawLine(xVec[0],(yVec[2]+yVec[1])/2,xVec[1],(yVec[2]+yVec[1])/2)
-legLatex = ROOT.TLatex()
 legLatex.DrawLatex(950,2000,'#scale[0.65]{Expected limit (#pm1 #sigma_{exp})}')
 line.SetLineColor(ROOT.kRed)
 line.SetLineStyle(2)
@@ -122,8 +124,12 @@ line.DrawLine(775,1862.5,925,1862.5)
 line.SetLineStyle(1)
 line.DrawLine(775,1825,925,1825)
 legLatex.DrawLatex(950,1800,'#scale[0.65]{Observed limit (#pm1 #sigma^{SUSY}_{theory})}')
-legLatex.DrawLatex(950,1600,'#scale[0.65]{All limits at 95% CL}')
-legLatex.DrawLatex(775,1400,'#sqrt{s} = 13 TeV, 5.8 fb^{-1}')
+line.SetLineColor(13)
+line.SetLineStyle(1)
+line.DrawLine(775,1625,925,1625)
+legLatex.DrawLatex(950,1600,'#scale[0.65]{Run 1 limit}')
+legLatex.DrawLatex(800,1400,'#scale[0.65]{All limits at 95% CL}')
+
 legLatex.DrawLatex(775,2250,'#scale[0.5]{#tilde{g}-#tilde{g} production, #tilde{g}#rightarrowqq#tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0}#rightarrow qqq}')
 
 #Run 1 limit
@@ -135,13 +141,6 @@ gr3=ROOT.TGraph(len(xVec),array.array('d',xVec),array.array('d',yVec))
 gr3.SetLineWidth(2)
 gr3.SetLineColor(13)
 gr3.Draw('LSAME')
-legLatex.DrawLatex(900,700,'#color[12]{#scale[0.65]{Run 1 limit}}')
-
-#forbidden band
-line.SetLineStyle(2)
-line.SetLineColor(13)
-line.SetLineWidth(2)
-line.DrawLine(700,700,2200,2200)
 
 legLatex.SetTextAngle(26)
 legLatex.DrawLatex(850,900,'#color[12]{#scale[0.55]{#tilde{g}#rightarrow qq#tilde{#chi}_{1}^{0} forbidden}}')

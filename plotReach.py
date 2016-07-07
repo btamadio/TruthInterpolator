@@ -12,6 +12,7 @@ limits = [48.8,39.0,30.1,24.2,19.7,
 
 srList = ['4jSRb1','4jSR','5jSRb1','5jSR']
 mjList = ['600','650','700','750','800']
+fileNames=['m4_b1','m4_b9','m5_b1','m5_b9']
 f=ROOT.TFile.Open('output.root')
 can=[]
 limitCounter=0
@@ -21,6 +22,7 @@ contList=[]
 grs=[]
 colors=[ROOT.kRed,ROOT.kGreen,ROOT.kBlue,ROOT.kYellow,ROOT.kViolet]
 legs = []
+gr3=[]
 for i in range(len(srList)):
     contList.append([])
     can.append(ROOT.TCanvas('c_'+str(i),'c_'+str(i),800,600))
@@ -28,7 +30,6 @@ for i in range(len(srList)):
     firstDrawn=False
     for mj in mjList:
         h=f.Get('h_recoYield_nom_interp_'+srList[i]+'_'+mj)
-        print h
         h.SetContour(1,array.array('d',[limits[limitCounter]]))
         h.Draw('cont z list')
         can[i].Update()
@@ -55,7 +56,7 @@ for i in range(len(srList)):
     can[i].RedrawAxis()
     ROOT.ATLASLabel(0.2,0.875,'Simulation Internal')
     lat.DrawLatex(800,1500,'#int L dt = 5.8 fb^{-1}')
-    lat.DrawLatex(800,1200,srList[i])
+    lat.DrawLatex(800,1200,'#bf{'+srList[i]+'}')
     legs.append(ROOT.TLegend(0.7,0.5,0.95,0.9))
 
     for j in range(len(contList[i])):
@@ -63,5 +64,20 @@ for i in range(len(srList)):
     legs[i].SetBorderSize(0)
     legs[i].SetFillStyle(0)
     legs[i].SetTextSize(0.04)
+    #Run 1 limit
+    run1Pairs=[(889,65.62),(893.4,96.88),(897.9,128.1),(899.4,159.4),( 901,190.6),( 902.5,221.9),( 908.1,253.1),( 912.5,257.6),(930.6,284.4),(937.5,294),(953,315.6),(962.5,328.7),(975.9,346.9),(987.5,362.5),(996.1,378.1),(1012,407.7),(1013,409.4),(1035,440.6),(1038,454.1),(1041,471.9),(1038,488.1),(1034,503.1),(1028,534.4),(1022,565.6),(1027,596.9),(1012,618.7),(993,628.1),(987.5,629.7),(962.5,640.1),(937.5,652),(922.1,659.4),(912.5,664),(887.5,676.1),(862.5,688.1),(859,690.6),(837.5,708.9),(822.7,721.9),(812.5,731.3)]
+    xVec=[p[0] for p in run1Pairs]
+    yVec=[p[1] for p in run1Pairs]
+    gr3.append(ROOT.TGraph(len(xVec),array.array('d',xVec),array.array('d',yVec)))
+    gr3[-1].SetLineWidth(2)
+    gr3[-1].SetLineColor(13)
+    gr3[-1].SetLineStyle(2)
+    gr3[-1].Draw('LSAME')
+    legs[i].AddEntry(gr3[-1],'Run 1 limit','l')
     legs[i].Draw()
-            
+    fileName='/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/ReachPlots/07_07_5p8fb/reach_RPV10_'
+    fileName+=fileNames[i]+'_95CL'
+    can[i].Print(fileName+'.pdf')
+    can[i].Print(fileName+'.png')
+    can[i].Print(fileName+'.C')
+    subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/ReachPlots/07_07_5p8fb/*',shell=True)
