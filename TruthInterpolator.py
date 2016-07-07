@@ -1,4 +1,4 @@
- #!/usr/bin/env python
+#!/usr/bin/env python
 from pointDictTruth import pointDictTruth
 from pointDict import pointDict
 import ROOT
@@ -88,7 +88,8 @@ class TruthInterpolator:
                     self.recoYieldHist[i].Fill(mG,mX,h.GetBinContent(i+1))
                     self.recoYieldHist_1up[i].Fill(mG,mX,h.GetBinContent(i+1)*xsec_1up/xsec)
                     self.recoYieldHist_1down[i].Fill(mG,mX,h.GetBinContent(i+1)*xsec_1down/xsec)
-        self.interpolate(self.recoYieldHist[0],self.truthYieldHist[0],self.recoYieldHist_interp[0])
+        for i in range(len(self.recoYieldHist)):
+            self.interpolate(self.recoYieldHist[i],self.truthYieldHist[i],self.recoYieldHist_interp[i])
     def interpolate(self,recoHist,truthHist,interpHist):
         for xBin in range(1,recoHist.GetNbinsX()+1):
             for yBin in range(1,recoHist.GetNbinsY()+1):
