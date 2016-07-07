@@ -33,23 +33,23 @@ class TruthInterpolator:
         self.outFile=ROOT.TFile('output.root','RECREATE')
         for i in range(len(self.srList)):
             for j in range(len(self.mjList)):
-                self.truthYieldHist.append(ROOT.TH2D('h_truthYield_'+self.srList[i]+'_'+self.mjList[j],'nominal truth yield',24,725,1925,37,25,1875))
-                self.truthEffHist.append(ROOT.TH2D('h_truthEff_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency',24,725,1925,37,25,1875))
-                self.truthEffXsec.append(ROOT.TH2D('h_truthEff_xsec_nom_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
-                self.truthEffXsec_1up.append(ROOT.TH2D('h_truthEff_xsec_1up_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
-                self.truthEffXsec_1down.append(ROOT.TH2D('h_truthEff_xsec_1down_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
+                self.truthYieldHist.append(ROOT.TH2F('h_truthYield_'+self.srList[i]+'_'+self.mjList[j],'nominal truth yield',24,725,1925,37,25,1875))
+                self.truthEffHist.append(ROOT.TH2F('h_truthEff_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency',24,725,1925,37,25,1875))
+                self.truthEffXsec.append(ROOT.TH2F('h_truthEff_xsec_nom_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
+                self.truthEffXsec_1up.append(ROOT.TH2F('h_truthEff_xsec_1up_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
+                self.truthEffXsec_1down.append(ROOT.TH2F('h_truthEff_xsec_1down_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
 
-                self.recoYieldHist.append(ROOT.TH2D('h_recoYield_nom_'+self.srList[i]+'_'+self.mjList[j],'nominal reco yield',24,725,1925,37,25,1875))
-                self.recoYieldHist_1up.append(ROOT.TH2D('h_recoYield_1up_'+self.srList[i]+'_'+self.mjList[j],'+1 #sigma reco yield',24,725,1925,37,25,1875))
-                self.recoYieldHist_1down.append(ROOT.TH2D('h_recoYield_1down_'+self.srList[i]+'_'+self.mjList[j],'-1 #sigma reco yield',24,725,1925,37,25,1875))
+                self.recoYieldHist.append(ROOT.TH2F('h_recoYield_nom_'+self.srList[i]+'_'+self.mjList[j],'nominal reco yield',24,725,1925,37,25,1875))
+                self.recoYieldHist_1up.append(ROOT.TH2F('h_recoYield_1up_'+self.srList[i]+'_'+self.mjList[j],'+1 #sigma reco yield',24,725,1925,37,25,1875))
+                self.recoYieldHist_1down.append(ROOT.TH2F('h_recoYield_1down_'+self.srList[i]+'_'+self.mjList[j],'-1 #sigma reco yield',24,725,1925,37,25,1875))
 
-                self.recoEffHist.append(ROOT.TH2D('h_recoEff_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency',24,725,1925,37,25,1875))
-                self.recoEffXsec.append(ROOT.TH2D('h_recoEff_xsec_nom_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
-                self.recoEffXsec_1up.append(ROOT.TH2D('h_recoEff_xsec_1up_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
-                self.recoEffXsec_1down.append(ROOT.TH2D('h_recoEff_xsec_1down_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
-                self.recoYieldHist_interp.append(ROOT.TH2D('h_recoYield_nom_interp_'+self.srList[i]+'_'+self.mjList[j],'interpolated nominal reco yield',24,725,1925,37,25,1875))
-                self.recoYieldHist_interp_1up.append(ROOT.TH2D('h_recoYield_1up_interp_'+self.srList[i]+'_'+self.mjList[j],'+1 sigma interpolated reco yield',24,725,1925,37,25,1875))
-                self.recoYieldHist_interp_1down.append(ROOT.TH2D('h_recoYield_1down_interp_'+self.srList[i]+'_'+self.mjList[j],'-1 sigma interpolated reco yield',24,725,1925,37,25,1875))
+                self.recoEffHist.append(ROOT.TH2F('h_recoEff_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency',24,725,1925,37,25,1875))
+                self.recoEffXsec.append(ROOT.TH2F('h_recoEff_xsec_nom_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
+                self.recoEffXsec_1up.append(ROOT.TH2F('h_recoEff_xsec_1up_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
+                self.recoEffXsec_1down.append(ROOT.TH2F('h_recoEff_xsec_1down_'+self.srList[i]+'_'+self.mjList[j],'selection efficiency * xsec',24,725,1925,37,25,1875))
+                self.recoYieldHist_interp.append(ROOT.TH2F('h_recoYield_nom_interp_'+self.srList[i]+'_'+self.mjList[j],'interpolated nominal reco yield',24,725,1925,37,25,1875))
+                self.recoYieldHist_interp_1up.append(ROOT.TH2F('h_recoYield_1up_interp_'+self.srList[i]+'_'+self.mjList[j],'+1 sigma interpolated reco yield',24,725,1925,37,25,1875))
+                self.recoYieldHist_interp_1down.append(ROOT.TH2F('h_recoYield_1down_interp_'+self.srList[i]+'_'+self.mjList[j],'-1 sigma interpolated reco yield',24,725,1925,37,25,1875))
     def makeTruthHists(self):
         for key in self.truthFile.GetListOfKeys():
             if 'h_SRyield' in key.GetName():
