@@ -89,7 +89,9 @@ class TruthInterpolator:
                     self.recoYieldHist_1up[i].Fill(mG,mX,h.GetBinContent(i+1)*xsec_1up/xsec)
                     self.recoYieldHist_1down[i].Fill(mG,mX,h.GetBinContent(i+1)*xsec_1down/xsec)
         for i in range(len(self.recoYieldHist)):
-            self.interpolate(self.recoYieldHist[i],self.truthYieldHist[i],self.recoYieldHist_interp[i])
+            self.interpolate(self.recoYieldHist[i],self.truthEffXsec[i],self.recoYieldHist_interp[i])
+            self.interpolate(self.recoYieldHist_1up[i],self.truthEffXsec_1up[i],self.recoYieldHist_interp_1up[i])
+            self.interpolate(self.recoYieldHist_1down[i],self.truthEffXsec_1down[i],self.recoYieldHist_interp_1down[i])
     def interpolate(self,recoHist,truthHist,interpHist):
         for xBin in range(1,recoHist.GetNbinsX()+1):
             for yBin in range(1,recoHist.GetNbinsY()+1):
@@ -107,11 +109,13 @@ class TruthInterpolator:
                         interpHist.Fill(mG,mX,interpYield)
 
     def getNearestFilledBin(self,recoHist,truthHist,xBin,yBin):
-        for j in range(yBin-1,0,-1):
+        #first look for a filled bin with mX(filled) <= mX(empty), mG(filled) < mG(empty)
+        for j in range(yBin,0,-1):
             for i in range(xBin-1,0,-1):
                 if recoHist.GetBinContent(i,j) != 0 and truthHist.GetBinContent(i,j)!=0:
                     return (i,j)
-        for j in range(yBin-1,recoHist.GetNbinsY()+1):
+        #if not found, look for filled bin with higher mX and lower mG
+        for j in range(yBin+1,recoHist.GetNbinsY()+1):
             for i in range(xBin-1,0,-1):
                 if recoHist.GetBinContent(i,j) != 0 and truthHist.GetBinContent(i,j)!=0:
                     return (i,j)
