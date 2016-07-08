@@ -41,7 +41,7 @@ for i in range(len(srList)):
             
             h1.GetYaxis().SetRangeUser(-50,1750)
             h1.GetYaxis().SetTickLength(0)
-            h1.GetYaxis().SetTitle('m_{#tilde{#chi_{1}^{0}}} [GeV]')
+            h1.GetYaxis().SetTitle('m_{#tilde{#chi}_{1}^{0}} [GeV]')
             h1.GetYaxis().SetTitleOffset(1.6)
             h1.GetYaxis().SetLabelOffset(999)
 

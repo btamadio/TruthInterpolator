@@ -45,6 +45,9 @@ for i in range(len(srList)):
                 cont.Draw('AL')
                 cont.GetXaxis().SetLimits(700,2000)
                 cont.GetYaxis().SetRangeUser(50,2000)
+                cont.GetXaxis().SetTitle('m_{#tilde{g}} [GeV]')
+                cont.GetYaxis().SetTitle('m_{#tilde{#chi}_{1}^{0}} [GeV]')
+
             else:
                 cont.Draw('lsame')
         limitCounter+=1
@@ -53,6 +56,7 @@ for i in range(len(srList)):
     grs.append(ROOT.TGraph(len(xVec),array.array('d',xVec),array.array('d',yVec)))
     grs[-1].SetFillColor(10)
     grs[-1].Draw('FSAME')
+
     can[i].RedrawAxis()
     ROOT.ATLASLabel(0.2,0.875,'Simulation Internal')
     lat.DrawLatex(800,1500,'#int L dt = 5.8 fb^{-1}')
