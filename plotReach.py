@@ -4,6 +4,7 @@ ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasStyle.C')
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasLabels.C')
 ROOT.SetAtlasStyle()
 
+lumi = 5.8
 
 limits = [48.8,39.0,30.1,24.2,19.7,
           98.9,69.9,51.5,38.1,29.1,
@@ -59,7 +60,7 @@ for i in range(len(srList)):
 
     can[i].RedrawAxis()
     ROOT.ATLASLabel(0.2,0.875,'Simulation Internal')
-    lat.DrawLatex(800,1500,'#int L dt = 5.8 fb^{-1}')
+    lat.DrawLatex(800,1500,'#int L dt = '+str(lumi)+' fb^{-1}')
     lat.DrawLatex(800,1200,'#bf{'+srList[i]+'}')
     legs.append(ROOT.TLegend(0.7,0.5,0.95,0.9))
 
@@ -79,7 +80,8 @@ for i in range(len(srList)):
     gr3[-1].Draw('LSAME')
     legs[i].AddEntry(gr3[-1],'Run 1 limit','l')
     legs[i].Draw()
-    fileName='/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/ReachPlots/07_07_5p8fb/reach_RPV10_'
+    lumiStr = str(lumi).split('.')[0]+'p'+str(lumi).split('.')[1]+'fb'
+    fileName='/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/ReachPlots/07_07_'+lumiStr+'/reach_RPV10_'
     fileName+=fileNames[i]+'_95CL'
     can[i].Print(fileName+'.pdf')
     can[i].Print(fileName+'.png')
