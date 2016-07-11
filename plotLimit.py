@@ -1,11 +1,20 @@
 #!/usr/bin/env python
 import ROOT,array,subprocess
 f=ROOT.TFile.Open('output.root')
-expLimit = [5.8,8.2,11.9]
-obsLimit = [10.2]
+
+lumi=8.9
+expLimit = [6.9,9.4,14.3]
+obsLimit = [13.1]
+
+#lumi = 5.8
+#expLimit = [5.8,8.2,11.9]
+#obsLimit = [10.2]
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasStyle.C')
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasLabels.C')
 ROOT.SetAtlasStyle()
+
+
+
 sr = '5jSRb1'
 mj = '600'
 c1 = ROOT.TCanvas('c1','c1',800,600)
@@ -14,6 +23,7 @@ histNameUp = 'h_recoYield_1up_interp_'+sr+'_'+mj
 histNameDown = 'h_recoYield_1down_interp_'+sr+'_'+mj
 
 hNom = f.Get(histNameNom)
+hNom.Scale(lumi/5.8)
 hNom.SetContour(3,array.array('d',expLimit))
 hNom.Draw('cont list')
 c1.Update()
@@ -30,6 +40,9 @@ c2.cd()
 hUp = f.Get(histNameUp)
 hDown = f.Get(histNameDown)
 
+hUp.Scale(lumi/5.8)
+hDown.Scale(lumi/5.8)
+
 hNom.SetContour(1,array.array('d',obsLimit))
 hUp.SetContour(1,array.array('d',obsLimit))
 hDown.SetContour(1,array.array('d',obsLimit))
@@ -40,6 +53,7 @@ contourTListObs = ROOT.gROOT.GetListOfSpecials().FindObject('contours')
 for cont in contourTListObs:
     for c in cont:
         contObsList.append(c.Clone('yieldGraphObs_'+str(len(contObsList))))
+
 
 hUp.Draw('cont list')
 c2.Update()
@@ -103,7 +117,7 @@ gr.Draw('FSAME')
 ROOT.ATLASLabel(0.6,0.88,'Internal')
 legLatex = ROOT.TLatex()
 
-legLatex.DrawLatex(1500,1775,'#sqrt{s} = 13 TeV, 5.8 fb^{-1}')
+legLatex.DrawLatex(1500,1775,'#sqrt{s} = 13 TeV, '+str(lumi)+' fb^{-1}')
 
 #Custom legend
 xVec=[775.0,925.0,925.0,775.0]
@@ -146,8 +160,9 @@ legLatex.SetTextAngle(26)
 legLatex.DrawLatex(850,900,'#color[12]{#scale[0.55]{#tilde{g}#rightarrow qq#tilde{#chi}_{1}^{0} forbidden}}')
 
 c3.RedrawAxis()
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/limt_RPV10_m5_b1_MJ_600_13000.pdf')
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/limt_RPV10_m5_b1_MJ_600_13000.png')
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/limt_RPV10_m5_b1_MJ_600_13000.C')
+lumiStr=str(lumi).split('.')[0]+'p'+str(lumi).split('.')[1]+'fb'
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.pdf')
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.pdf')
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.pdf')
 
-p=subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/*',shell=True)
+p=subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/*',shell=True)
