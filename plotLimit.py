@@ -3,8 +3,14 @@ import ROOT,array,subprocess
 f=ROOT.TFile.Open('output.root')
 
 lumi=8.9
-expLimit = [6.9,9.4,14.3]
-obsLimit = [13.1]
+#baseline
+#expLimit = [6.9,9.4,14.3]
+#obsLimit = [13.1]
+
+#alternate CR
+expLimit = [6.1,8.7,12.2]
+obsLimit = [15.1]
+
 
 #lumi = 5.8
 #expLimit = [5.8,8.2,11.9]
@@ -161,8 +167,8 @@ legLatex.DrawLatex(850,900,'#color[12]{#scale[0.55]{#tilde{g}#rightarrow qq#tild
 
 c3.RedrawAxis()
 lumiStr=str(lumi).split('.')[0]+'p'+str(lumi).split('.')[1]+'fb'
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.pdf')
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.pdf')
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.pdf')
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'_alternateCR/limit_RPV10_m5_b1_MJ_600_13000.pdf')
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'_alternateCR/limit_RPV10_m5_b1_MJ_600_13000.pdf')
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'_alternateCR/limit_RPV10_m5_b1_MJ_600_13000.pdf')
 
-p=subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/*',shell=True)
+p=subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'_alternateCR/*',shell=True)

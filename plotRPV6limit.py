@@ -3,7 +3,7 @@
 from pointDict import pointDict
 from pointDictTruth import pointDictTruth
 
-sr = '5jSRb1'
+sr = '4jSRb1'
 mj = '600'
 
 pb = 1.0E-3
@@ -11,13 +11,42 @@ pb = 1.0E-3
 import ROOT,array,subprocess
 f=ROOT.TFile.Open('../HistMaker/hists/RPV6/nominal.root')
 
+#alternate CR
+#4jSRb1 MJ > 800
+#lumi = 8.9
+#expLimit=[10.8,16.0,23.0,33.2,46.0]
+#obsLimit = 13.6
+
+#4jSRb1 MJ > 600
+#lumi = 8.9
+#expLimit=[37.0,52.5,72,100,132]
+#obsLimit = 60.5
+
+#5jSRb1
+#expLimit=[4.6,6.1,8.7,12.2,18.6]
+#obsLimit=15.1
+
+
+#baseline
+#4jSRb1 limits
+#lumi = 8.9
+#expLimit=[9.4,14.0,20.0,29.1,41.2]
+#obsLimit = 12.6
+
+#5jSRb1, MJ > 600 limits:
 #lumi = 8.9
 #expLimit = [5.5,6.9,9.4,14.3,20.5]
 #obsLimit = 13.1
 
-lumi = 5.8
-expLimit = [4.3,5.8,8.2,11.9,18.5]
-obsLimit = 10.2
+#4jSRb1 MJ > 600
+lumi = 8.9
+expLimit=[40.5,53.5,74,101,134]
+obsLimit = 72
+
+#lumi = 5.8
+#expLimit = [4.3,5.8,8.2,11.9,18.5]
+#obsLimit = 10.2
+
 
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasStyle.C')
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasLabels.C')
@@ -132,8 +161,8 @@ lat.DrawLatexNDC(0.2,0.35,'#sqrt{s} = 13 TeV, '+str(lumi)+' fb^{-1}')
 
 lumiStr=str(lumi).split('.')[0]+'p'+str(lumi).split('.')[1]+'fb'
 
-c1.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV6_m5_b1_MJ_600_13000.pdf')
-c1.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV6_m5_b1_MJ_600_13000.pdf')
-c1.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV6_m5_b1_MJ_600_13000.pdf')
+c1.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV6_m4_b1_MJ_'+mj+'_13000.pdf')
+c1.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV6_m4_b1_MJ_'+mj+'_13000.png')
+c1.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/limit_RPV6_m4_b1_MJ_'+mj+'_13000.C')
 
 p=subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_08_'+lumiStr+'/*',shell=True)
