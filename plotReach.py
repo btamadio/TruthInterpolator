@@ -4,12 +4,16 @@ ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasStyle.C')
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasLabels.C')
 ROOT.SetAtlasStyle()
 
-lumi = 5.8
+lumi = 8.9
 
-limits = [48.8,39.0,30.1,24.2,19.7,
-          98.9,69.9,51.5,38.1,29.1,
-          12.7,11.2,9.7,8.8,7.5,
-          17.5,14.8,12.8,11.2,9.9]
+#limits = [48.8,39.0,30.1,24.2,19.7,
+#          98.9,69.9,51.5,38.1,29.1,
+#          12.7,11.2,9.7,8.8,7.5,
+#          17.5,14.8,12.8,11.2,9.9]
+limits = [81.0, 57.8, 44.4, 33.8, 28.7, 
+          189.0, 119.6, 82.5, 57.8, 43.3, 
+          13.2, 11.4, 9.7, 8.9, 8.1, 23.2, 
+          19.5, 15.9, 13.0, 11.5]
 
 srList = ['4jSRb1','4jSR','5jSRb1','5jSR']
 mjList = ['600','650','700','750','800']
@@ -37,7 +41,8 @@ for i in range(len(srList)):
         contourTList = ROOT.gROOT.GetListOfSpecials().FindObject('contours')
         for cont in contourTList:
             for c in cont:
-                contList[i].append(c.Clone('yieldGraph_'+'_'+srList[i]+'_'+mj))
+                if c.GetRMS(1) > 25:
+                    contList[i].append(c.Clone('yieldGraph_'+'_'+srList[i]+'_'+mj))
         for j in range(len(contList[i])):
             cont = contList[i][j]
             cont.SetLineColor(colors[j])
@@ -81,9 +86,9 @@ for i in range(len(srList)):
     legs[i].AddEntry(gr3[-1],'Run 1 limit','l')
     legs[i].Draw()
     lumiStr = str(lumi).split('.')[0]+'p'+str(lumi).split('.')[1]+'fb'
-    fileName='/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/ReachPlots/07_07_'+lumiStr+'/reach_RPV10_'
+    fileName='/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/ReachPlots/07_12_'+lumiStr+'_alternateCR/reach_RPV10_'
     fileName+=fileNames[i]+'_95CL'
     can[i].Print(fileName+'.pdf')
     can[i].Print(fileName+'.png')
     can[i].Print(fileName+'.C')
-    subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/ReachPlots/07_07_5p8fb/*',shell=True)
+subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/ReachPlots/07_12_'+lumiStr+'_alternateCR/*',shell=True)

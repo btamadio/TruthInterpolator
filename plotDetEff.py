@@ -76,4 +76,3 @@ for i in range(len(srList)):
             can[-1].Print(fileName+'.png')
             can[-1].Print(fileName+'.C')
             subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/DetectorEfficiency/07_07/*',shell=True)
-
