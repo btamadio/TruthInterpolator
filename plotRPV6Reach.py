@@ -5,8 +5,7 @@ from massDict import massDict
 import subprocess
 class interpolator:
     def __init__(self,fileName):
-        #Number of events needed for 3sigma observation
-        #self.contours =[ 50.9, 40.9, 30.5, 24.2, 19.6, 85.6, 66.0, 48.0, 37.6, 30.4, 11.5, 9.4, 7.5, 6.1, 4.4, 17.3, 13.9, 11.5, 9.5, 7.7]
+
         #number of events needed for 95%CL exclusion
 #        self.contours =[48.8,39.0,30.1,24.2,19.7,
 #                        98.9,69.9,51.5,38.1,29.1,
