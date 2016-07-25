@@ -5,7 +5,7 @@ f=ROOT.TFile.Open('output.root')
 lumi = 13.277
 sr='5jSRb1'
 mj = '600'
-expLimit=[8.4,11.7,16.3]
+expLimit=[8.6,12.8,18.3]
 obsLimit=[26.9]
 
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasStyle.C')
