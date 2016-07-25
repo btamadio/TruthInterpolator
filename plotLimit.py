@@ -5,7 +5,7 @@ f=ROOT.TFile.Open('output.root')
 lumi = 14.3
 sr='5jSRb1'
 mj = '600'
-expLimit=[9.5,14.2,20.5]
+expLimit=[12.5,12.7,13.3]
 obsLimit=[25.3]
 
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasStyle.C')
@@ -69,16 +69,22 @@ contExp=[contExpList[0],contExpList[1],contExpList[2]]
 c3 = ROOT.TCanvas('c3','c3',800,600)
 c3.cd()
 contExp[0].SetFillColor(5)
+contExp[0].SetLineColor(ROOT.kRed)
+contExp[1].SetLineColor(ROOT.kBlue)
+contExp[2].SetLineColor(ROOT.kBlack)
+
+contExp[0].SetLineWidth(2)
+contExp[1].SetLineWidth(2)
+contExp[2].SetLineWidth(2)
+
 contExp[0].GetXaxis().SetTitle("m_{#tilde{g}} [GeV]")
 contExp[0].GetYaxis().SetTitle("m_{#tilde{#chi}_{1}^{0}} [GeV]")
 contExp[0].GetYaxis().SetTitleOffset(1.4)
-contExp[0].Draw('AF')
+contExp[0].Draw('AL')
 contExp[0].GetXaxis().SetLimits(700,2200)
 contExp[0].GetYaxis().SetRangeUser(50,2200)
 contExp[2].SetFillColor(10)
-contExp[2].Draw('FSAME')
-contExp[1].SetLineStyle(2)
-contExp[1].SetLineWidth(2)
+contExp[2].Draw('LSAME')
 contExp[1].Draw('LSAME')
 
 contObs=[contObsList[0],contObsList[1],contObsList[2]]
@@ -87,7 +93,7 @@ contObs[2].SetLineStyle(2)
 for c in contObs:
     c.SetLineColor(ROOT.kRed)
     c.SetLineWidth(2)
-    c.Draw('LSAME')
+    #c.Draw('LSAME')
 
 #Blocking out the weird low part of the contour
 line = ROOT.TLine()
@@ -113,31 +119,42 @@ ROOT.ATLASLabel(0.6,0.88,'Internal')
 legLatex = ROOT.TLatex()
 
 legLatex.DrawLatex(1500,1775,'#sqrt{s} = 13 TeV, 14.3 fb^{-1}')
+leg = ROOT.TLegend(0.2,0.7,0.4,0.9)
+leg.AddEntry(contExp[0],'No ISR/PDF/Scale','l')
+leg.AddEntry(contExp[1],'Low ISR/PDF/Scale','l')
+leg.AddEntry(contExp[2],'High ISR/PDF/Scale','l')
+leg.SetBorderSize(0)
+leg.SetFillColor(0)
+leg.SetTextSize(0.04)
+leg.SetHeader('#scale[0.65]{Expected 95% CL limits}')
+leg.Draw()
 
 #Custom legend
-xVec=[775.0,925.0,925.0,775.0]
-yVec=[1950.0,1950.0,2100.0,2100.0]
-gr2 = ROOT.TGraph(len(xVec),array.array('d',xVec),array.array('d',yVec))
-gr2.SetFillColor(5)
-gr2.Draw('FSAME')
-line.SetLineColor(1)
-line.SetLineStyle(2)
-line.SetLineWidth(2)
-line.DrawLine(xVec[0],(yVec[2]+yVec[1])/2,xVec[1],(yVec[2]+yVec[1])/2)
-legLatex.DrawLatex(950,2000,'#scale[0.65]{Expected limit (#pm1 #sigma_{exp})}')
-line.SetLineColor(ROOT.kRed)
-line.SetLineStyle(2)
-line.SetLineWidth(2)
-line.DrawLine(775,1787.5,925,1787.5)
-line.DrawLine(775,1862.5,925,1862.5)
-line.SetLineStyle(1)
-line.DrawLine(775,1825,925,1825)
-legLatex.DrawLatex(950,1800,'#scale[0.65]{Observed limit (#pm1 #sigma^{SUSY}_{theory})}')
-line.SetLineColor(13)
-line.SetLineStyle(1)
-line.DrawLine(775,1625,925,1625)
-legLatex.DrawLatex(950,1600,'#scale[0.65]{Run 1 limit}')
-legLatex.DrawLatex(800,1400,'#scale[0.65]{All limits at 95% CL}')
+# xVec=[775.0,925.0,925.0,775.0]
+# yVec=[1950.0,1950.0,2100.0,2100.0]
+# gr2 = ROOT.TGraph(len(xVec),array.array('d',xVec),array.array('d',yVec))
+# gr2.SetFillColor(5)
+# gr2.Draw('FSAME')
+# line.SetLineColor(1)
+# line.SetLineStyle(2)
+# line.SetLineWidth(2)
+# line.DrawLine(xVec[0],(yVec[2]+yVec[1])/2,xVec[1],(yVec[2]+yVec[1])/2)
+# legLatex.DrawLatex(950,2000,'#scale[0.65]{Expected limit (#pm1 #sigma_{exp})}')
+# line.SetLineColor(ROOT.kRed)
+# line.SetLineStyle(2)
+# line.SetLineWidth(2)
+# line.DrawLine(775,1787.5,925,1787.5)
+# line.DrawLine(775,1862.5,925,1862.5)
+# line.SetLineStyle(1)
+# line.DrawLine(775,1825,925,1825)
+# legLatex.DrawLatex(950,1800,'#scale[0.65]{Observed limit (#pm1 #sigma^{SUSY}_{theory})}')
+# line.SetLineColor(13)
+# line.SetLineStyle(1)
+# line.DrawLine(775,1625,925,1625)
+# legLatex.DrawLatex(950,1600,'#scale[0.65]{Run 1 limit}')
+
+legLatex.DrawLatex(800,1400,'#scale[0.65]{Calculated with asymptotic formulae}')
+
 
 legLatex.DrawLatex(775,2250,'#scale[0.5]{#tilde{g}-#tilde{g} production, #tilde{g}#rightarrowqq#tilde{#chi}_{1}^{0}, #tilde{#chi}_{1}^{0}#rightarrow qqq}')
 
@@ -149,14 +166,14 @@ gr3=ROOT.TGraph(len(xVec),array.array('d',xVec),array.array('d',yVec))
 #gr3.SetLineStyle(2)
 gr3.SetLineWidth(2)
 gr3.SetLineColor(13)
-gr3.Draw('LSAME')
+#gr3.Draw('LSAME')
 
 legLatex.SetTextAngle(26)
 legLatex.DrawLatex(850,900,'#color[12]{#scale[0.55]{#tilde{g}#rightarrow qq#tilde{#chi}_{1}^{0} forbidden}}')
 
 c3.RedrawAxis()
 lumiStr='14p3fb'
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.pdf')
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.png')
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.C')
-p=subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'/*',shell=True)
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'_CompareUncert/limit_RPV10_m5_b1_MJ_600_13000.pdf')
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'_CompareUncert/limit_RPV10_m5_b1_MJ_600_13000.png')
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'_CompareUncert/limit_RPV10_m5_b1_MJ_600_13000.C')
+p=subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'_CompareUncert/*',shell=True)
