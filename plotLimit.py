@@ -2,11 +2,11 @@
 import ROOT,array,subprocess
 f=ROOT.TFile.Open('output.root')
 
-lumi = 13.277
+lumi = 14.3
 sr='5jSRb1'
 mj = '600'
-expLimit=[8.6,12.8,18.3]
-obsLimit=[26.9]
+expLimit=[9.5,14.2,20.5]
+obsLimit=[25.3]
 
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasStyle.C')
 ROOT.gROOT.LoadMacro('~/atlasstyle/AtlasLabels.C')
@@ -112,7 +112,7 @@ gr.Draw('FSAME')
 ROOT.ATLASLabel(0.6,0.88,'Internal')
 legLatex = ROOT.TLatex()
 
-legLatex.DrawLatex(1500,1775,'#sqrt{s} = 13 TeV, 13.3 fb^{-1}')
+legLatex.DrawLatex(1500,1775,'#sqrt{s} = 13 TeV, 14.3 fb^{-1}')
 
 #Custom legend
 xVec=[775.0,925.0,925.0,775.0]
@@ -155,8 +155,8 @@ legLatex.SetTextAngle(26)
 legLatex.DrawLatex(850,900,'#color[12]{#scale[0.55]{#tilde{g}#rightarrow qq#tilde{#chi}_{1}^{0} forbidden}}')
 
 c3.RedrawAxis()
-lumiStr='13p3fb'
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_24_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.pdf')
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_24_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.png')
-c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_24_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.C')
-p=subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_24_'+lumiStr+'/*',shell=True)
+lumiStr='14p3fb'
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.pdf')
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.png')
+c3.Print('/global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'/limit_RPV10_m5_b1_MJ_600_13000.C')
+p=subprocess.call('chmod a+r /global/project/projectdirs/atlas/www/multijet/RPV/btamadio/LimitPlots/07_25_'+lumiStr+'/*',shell=True)
